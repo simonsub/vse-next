@@ -16,6 +16,7 @@ const BrandAndModelFormFields = ({
   }, [brandId, models]);
   return (
     <Fragment>
+      <label htmlFor="brand">Brand</label>
       <select
         name="brandId"
         required={true}
@@ -31,6 +32,7 @@ const BrandAndModelFormFields = ({
           </option>
         ))}
       </select>
+      <label htmlFor="model">Model</label>
       <select name="modelId" required={true}>
         {filteredModels.map((model) => (
           <option key={model.id} value={model.id}>

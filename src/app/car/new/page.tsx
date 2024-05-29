@@ -17,7 +17,6 @@ const NewCarPage = async () => {
 
   return (
     <div>
-      New Car
       <NewCarForm brands={brands} models={models} />
     </div>
   );
