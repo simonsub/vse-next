@@ -10,7 +10,7 @@ const NewCarForm = ({
   brands: Brand[];
 }) => {
   return (
-    <div className={"formContainer"}>
+    <div className={"formContainer bg-gray-100"}>
       <form action={createCar} className="form flex flex-col">
         <BrandAndModelFormFields models={models} brands={brands} />
         <label htmlFor="location">Location</label>

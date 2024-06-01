@@ -1,6 +1,6 @@
 "use client";
 import { Brand, CarModel } from "@prisma/client";
-import { Fragment, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 const BrandAndModelFormFields = ({
   models,
@@ -15,7 +15,7 @@ const BrandAndModelFormFields = ({
     return models.filter((model) => model.brandId === brandId);
   }, [brandId, models]);
   return (
-    <Fragment>
+    <>
       <label htmlFor="brand">Brand</label>
       <select
         name="brandId"
@@ -40,7 +40,7 @@ const BrandAndModelFormFields = ({
           </option>
         ))}
       </select>
-    </Fragment>
+    </>
   );
 };
 

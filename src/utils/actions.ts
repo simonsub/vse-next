@@ -27,6 +27,50 @@ export const createCar = async (formData: FormData) => {
       year: year ? parseInt(year) : null,
     },
   });
-
   redirect("/");
+};
+
+export const redirectSearchParams = async (formData: FormData) => {
+  const location = formData.get("location")?.toString() ?? "";
+  const brandId = formData.get("brandId")?.toString() ?? "";
+  const modelId = formData.get("modelId")?.toString() ?? "";
+
+  redirect(`?location=${location}&brandId=${brandId}&modelId=${modelId}`);
+};
+
+export const getCars = async (
+  brandId: string | null,
+  modelId: string | null,
+  location: string | null
+) => {
+  let cars;
+
+  if (!brandId && !modelId && !location) {
+    cars = await prisma.car.findMany({
+      include: {
+        model: true,
+        brand: true,
+      },
+    });
+  } else {
+    cars = await prisma.car.findMany({
+      include: {
+        model: true,
+        brand: true,
+      },
+      where: {
+        AND: [
+          brandId && modelId && location
+            ? { brandId, modelId, location: { contains: location } }
+            : brandId && modelId
+            ? { brandId, modelId }
+            : location
+            ? { location: { contains: location } }
+            : {},
+        ],
+      },
+    });
+  }
+
+  return cars;
 };

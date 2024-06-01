@@ -1,5 +1,4 @@
 import prisma from "@/utils/prisma";
-import Link from "next/link";
 
 const fetchCarDetail = async (id: string) => {
   const car = await prisma.car.findUnique({
@@ -18,11 +17,29 @@ const CarDetailPage = async ({ params }: { params: { id: string } }) => {
   const car = await fetchCarDetail(params.id);
 
   return (
-    <div>
-      <Link href={"/"}>Home</Link>
-      <div>{car?.brand.name}</div>
-      <div>{car?.model.name}</div>
-      <div>{car?.description}</div>
+    <div className="carDetailContainer">
+      <div className="carDetailHeader">
+        <h1>
+          {car?.brand.name} {car?.model.name}
+        </h1>
+      </div>
+      <div className="carDetailContent">
+        <p>
+          <strong>Description:</strong> {car?.description}
+        </p>
+        <p>
+          <strong>Year:</strong> {car?.year}
+        </p>
+        <p>
+          <strong>Color:</strong> {car?.color ?? "No color"}
+        </p>
+        <p>
+          <strong>Location:</strong> {car?.location ?? "No location"}
+        </p>
+        <p>
+          <strong>Price:</strong> {car?.price} CZK
+        </p>
+      </div>
     </div>
   );
 };
