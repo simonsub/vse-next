@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
 import Link from "next/link";
+import { Suspense } from "react";
+import Loader from "@/components/Loader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,15 +20,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <nav className={"navbar"}>
-          <Link className={"navLink"} href={"/"}>
-            Home
-          </Link>
-          <Link className={"navLink"} href={"/car/new"}>
-            Add new car
-          </Link>
-        </nav>
-        {children}
+        <main className="flex-1">
+          <nav className={"navbar"}>
+            <Link className={"navLink"} href={"/"}>
+              Home
+            </Link>
+            <Link className={"navLink"} href={"/car/new"}>
+              Add new car
+            </Link>
+          </nav>
+          <Suspense fallback={<Loader />}>{children}</Suspense>
+        </main>
       </body>
     </html>
   );

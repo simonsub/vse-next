@@ -1,4 +1,6 @@
 import prisma from "@/utils/prisma";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
 const fetchCarDetail = async (id: string) => {
   const car = await prisma.car.findUnique({
@@ -15,6 +17,18 @@ const fetchCarDetail = async (id: string) => {
 
 const CarDetailPage = async ({ params }: { params: { id: string } }) => {
   const car = await fetchCarDetail(params.id);
+
+  if (!car) {
+    return (
+      <div className="carNotFoundContainer">
+        <h1>Car Not Found</h1>
+        <p>We are sorry, but the car you are looking for does not exist.</p>
+        <Link href="/">
+          <button>Go Back to Home</button>
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="carDetailContainer">
@@ -43,5 +57,13 @@ const CarDetailPage = async ({ params }: { params: { id: string } }) => {
     </div>
   );
 };
+
+/*function CarDetailsErrorBoundary({ params }: { params: { id: string } }) {
+  return (
+    <ErrorBoundary fallback={<ErrorComponent />}>
+      <CarDetailPage params={params} />
+    </ErrorBoundary>
+  );
+}*/
 
 export default CarDetailPage;

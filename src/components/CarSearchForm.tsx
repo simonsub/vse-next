@@ -40,6 +40,7 @@ const CarSearchForm = ({
                   setBrandId(e.target.value);
                 }}
               >
+                <option disabled selected value={""}></option>
                 {brands.map((brand) => (
                   <option key={brand.id} value={brand.id}>
                     {brand.name}

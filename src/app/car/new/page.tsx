@@ -3,6 +3,7 @@ import prisma from "@/utils/prisma";
 
 const fetchBrands = async () => {
   const brands = await prisma.brand.findMany();
+  console.log(brands);
   return brands;
 };
 

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import "../globals.css";
+import Loader from "@/components/Loader";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "Next.js",
@@ -19,7 +21,7 @@ export default function RootLayout({
             Back Home
           </Link>
         </nav>
-        {children}
+        <Suspense fallback={<Loader />}>{children}</Suspense>
       </body>
     </html>
   );
